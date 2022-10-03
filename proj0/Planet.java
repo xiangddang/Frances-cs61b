@@ -16,12 +16,12 @@ public class Planet{
 		this.imgFileName = img;
 	} 
 	public Planet(Planet p){
-		double xxPos = p.xxPos;
-		double yyPos = p.yyPos;
-		double xxVel = p.xxVel;
-		double yyVel = p.yyVel;
-		double mass = p.mass;
-		String imgFileName = p.imgFileName;
+		xxPos = p.xxPos;
+		yyPos = p.yyPos;
+		xxVel = p.xxVel;
+		yyVel = p.yyVel;
+		mass = p.mass;
+		imgFileName = p.imgFileName;
 	}
 
 	public double calcDistance(Planet p){
