@@ -6,22 +6,22 @@ public class Planet{
 	public double yyVel;
 	public double mass;
 	public String imgFileName;
-	
+
 	public Planet(double xP, double yP, double xV, double yV, double m, String img){
-		xxPos = xP;
-		yyPos = yP;
-		xxVel = xV;
-		yyVel = yV;
-		mass = m;
-		imgFileName = img;
+		this.xxPos = xP;
+		this.yyPos = yP;
+		this.xxVel = xV;
+		this.yyVel = yV;
+		this.mass = m;
+		this.imgFileName = img;
 	} 
 	public Planet(Planet p){
-		xxPos = p.xxPos;
-		yyPos = p.yyPos;
-		xxVel = p.xxVel;
-		yyVel = p.yyVel;
-		mass = p.mass;
-		imgFileName = p.imgFileName;
+		double xxPos = p.xxPos;
+		double yyPos = p.yyPos;
+		double xxVel = p.xxVel;
+		double yyVel = p.yyVel;
+		double mass = p.mass;
+		String imgFileName = p.imgFileName;
 	}
 
 	public double calcDistance(Planet p){
@@ -76,7 +76,6 @@ public class Planet{
 		this.yyPos += dt * this.yyVel;
 	}
 	public void draw(){
-		String pimgFileName = "images/" + this.imgFileName
-		StdDraw.picture(this.xxPos, this.yyPos, pimgFileName);
+		StdDraw.picture(this.xxPos, this.yyPos, this.imgFileName);
 	}
 }
