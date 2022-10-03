@@ -11,7 +11,7 @@ public class NBody{
         Planet[] array = new Planet[number];
         int index = 0;
         while(number > index){
-            Planet new_planet = new Planet(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readString());
+            Planet new_planet = new Planet(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), "images/" + in.readString());
             array[index] = new_planet;
             index++;
         }
@@ -20,11 +20,11 @@ public class NBody{
     public static void main(String[] args){
         double T = Double.parseDouble(args[0]);
         double dt = Double.parseDouble(args[1]);
-        
+
         String filename = args[2];
         double radius = readRadius(filename);
         Planet[] planets = readPlanets(filename);
-        
+
         StdDraw.setScale(-radius, radius);
         StdDraw.picture(0, 0, "images/starfield.jpg");
         int num = 0;
@@ -33,7 +33,7 @@ public class NBody{
             planet.draw();
             num++;
         }
-        
+
         double time = 0;
         while(time != T){
             double[] xForces = new double[num];
