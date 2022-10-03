@@ -11,7 +11,7 @@ public class NBody{
         Planet[] array = new Planet[number];
         int index = 0;
         while(number > index){
-            Planet new_planet = new Planet(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), "images/" + in.readString());
+            Planet new_planet = new Planet(in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readDouble(), in.readString());
             array[index] = new_planet;
             index++;
         }
