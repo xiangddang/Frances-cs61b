@@ -1,67 +1,126 @@
 public class ArrayDeque<T> {
-    private int nextFirst;
-    private int nextLast;
     private T[] items;
     private int size;
 
-    public ArrayDeque(){
+    public ArrayDeque() {
         items = (T[]) new Object[8];
-        nextFirst = items.length - 1;
-        nextLast = 0;
-        size = 0;
+        this.size = 0;
+    }
+    public ArrayDeque(T[] items, int size){
+        this.items = items;
+        this.size = size;
     }
 
-    private void resize(int capacity){
-        T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, 0, nextLast);
-        int length = items.length - 1 - nextLast;
-        System.arraycopy(items, nextFirst + 1, a, capacity - length, length);
-        nextFirst = capacity - length - 1;
-        items = a;
+    public int getLength(){
+        return items.length;
     }
 
-    /** add the item at the front of the array.*/
-    public void addFirst(T item){
-        if(nextFirst - 1 == nextLast){
-            resize(items.length * 2);
+
+    /** if the usage of the array is over 50%, double the size of the array
+     * if the usage of the array is less than 50%, shrink the length in half;
+     */
+
+    private void arrayCheckModify(){
+        if(this.size == 0){
+            return;
         }
-        items[nextFirst] = item;
-        size ++;
-        nextFirst --;
-    }
-    /** add the item at the end of the array.*/
-    public void addLast(T item){
-        if(nextFirst - 1 == nextLast){
-            resize(items.length * 2);
+        if(items.length / size < 2){
+            T[] temp = (T[]) new Object[items.length * 2];
+            System.arraycopy(items, 0, temp, 0, size);
+            items = temp;
         }
-        items[nextLast] = item;
+        if(items.length >= 16) {
+            if (items.length / size > 4) {
+                T[] temp = (T[]) new Object[items.length / 2];
+                System.arraycopy(items, 0, temp, 0, size);
+                items = temp;
+            }
+        }
+    }
+
+    /**
+     * add the item at the front of the array.
+     */
+    public void addFirst(T item) {
+        arrayCheckModify();
+        for(int i = this.size - 1; i >= 0; i--) {
+            items[i + 1] = items[i];
+        }
+        items[0] = item;
+        size++;
+    }
+
+    /**
+     * add the item at the end of the array.
+     */
+    public void addLast(T item) {
+        arrayCheckModify();
+        items[size] = item;
         size ++;
-        nextLast ++;
     }
-    public boolean isEmpty(){
-        return size == 0;
+
+    public boolean isEmpty() {
+        if(size == 0){
+            return true;
+        }else{
+            return false;
+        }
     }
-    public int size(){
-        return size;
+
+    public int size() {
+        return this.size;
     }
-    public void printDeque(){
-        for(int i = nextFirst + 1; i != nextLast - 1; i = (i + 1) % items.length){
+
+    public void printDeque() {
+        for (int i = 0; i < this.size; i ++) {
             System.out.print(items[i] + "");
         }
-        System.out.print(items[nextLast - 1]);
     }
 
-    public T removeFirst(){
-        if(nextFirst == items.length - 1){
+    public T removeFirst() {
+        T res = items[0];
+        for(int i = 0; i < this.size; i++){
+            items[i] = items[i + 1];
+        }
+        size --;
+        arrayCheckModify();
+        return res;
+    }
+    public T removeLast(){
+        T res = items[size - 1];
+        size --;
+        arrayCheckModify();
+        return res;
+    }
+    public T get(int index){
+        if(index > 0 && index < this.size){
+            return items[index];
+        }else{
             return null;
         }
-        nextFirst ++;
-        T temp = items[nextFirst];
-        items[nextFirst] = null;
-        size --;
-        if(items.length >= 16 && size < items.length / 4){
-            resize(items.length / 2);
+    }
+
+    /** using main method to test the codes. */
+    public static void main(String[] args) {
+        ArrayDeque<Integer> myArray = new ArrayDeque<>();
+        for (int i = 0; i < 5; i++) {
+            myArray.addLast(i);
         }
-        return temp;
+
+        System.out.println(myArray.size() + " and " + myArray.getLength());
+        for (int i = 0; i < 5; i++) {
+            myArray.addLast(i);
+        }
+        System.out.println(myArray.size()+" and "+myArray.getLength());
+
+        for (int i = 0; i < 100; i++) {
+            myArray.addLast(i);
+        }
+        System.out.println(myArray.size()+" and "+myArray.getLength());
+
+        for (int i = 0; i < 65; i++) {
+            myArray.removeLast();
+        }
+        System.out.println(myArray.size()+" and "+myArray.getLength());
     }
 }
