@@ -10,6 +10,21 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
+    public static void main(String[] args) {
+        LinkedListDeque L = new LinkedListDeque();
+        L.addFirst(0);
+        L.addFirst(1);
+        L.addFirst(2);
+        L.addFirst(3);
+        L.addFirst(4);
+        L.addFirst(5);
+        L.addFirst(6);
+        L.addFirst(7);
+        System.out.println(L.removeFirst());
+        System.out.println(L.removeLast());
+        System.out.println(L.removeLast());
+    }
+
     /**
      * Adds an item of type T to the front of the deque.
      */
@@ -18,7 +33,7 @@ public class LinkedListDeque<T> {
             sentinel.item = item;
             size++;
         } else {
-            sentinel = new Node(sentinel, item, sentinel.next);
+            sentinel = new Node(sentinel.prev, item, sentinel);
             sentinel.next.next.prev = sentinel.next;
             size++;
         }
@@ -65,9 +80,10 @@ public class LinkedListDeque<T> {
         if (sentinel.next == sentinel) {
             return null;
         }
-        Node temp = sentinel.next;
-        sentinel.next.next.prev = sentinel;
-        sentinel.next = sentinel.next.next;
+        Node temp = sentinel;
+        sentinel = sentinel.next;
+        sentinel.next = temp.next.next;
+        sentinel.prev = temp.prev;
         size--;
         return temp.item;
     }
@@ -84,15 +100,14 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel.prev.prev;
         size--;
         return temp.item;
-
     }
 
     /**
-     * Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth. If no such
-     * item exists, returns null
+     * Gets the item at the given index, where 0 is the front, 1 is the next item, and so forth.
+     * If no such item exists, returns null
      */
     public T get(int index) {
-        Node pos = sentinel.next;
+        Node pos = sentinel;
         if (index >= size) {
             return null;
         }
@@ -118,9 +133,9 @@ public class LinkedListDeque<T> {
     }
 
     private class Node {
-        public Node prev;
-        public T item;
-        public Node next;
+        private Node prev;
+        private T item;
+        private Node next;
 
         public Node(Node prev, T item, Node next) {
             this.prev = prev;

@@ -12,41 +12,54 @@ public class ArrayDeque<T> {
      * if the usage of the array is less than 50%, shrink the length in half;
      */
 
-    private void arrayCheckModify() {
-        if (this.size == 0) {
-            return;
-        }
-        if (items.length / size < 2) {
-            T[] temp = (T[]) new Object[items.length * 2];
-            System.arraycopy(items, 0, temp, 0, size);
-            items = temp;
-        }
-        if (items.length >= 16) {
-            if (items.length / size > 4) {
-                T[] temp = (T[]) new Object[items.length / 2];
-                System.arraycopy(items, 0, temp, 0, size);
-                items = temp;
-            }
-        }
+    private void resize(int cap) {
+        T[] a = (T[]) new Object[cap];
+        System.arraycopy(items, 0, a, 0, size);
+        items = a;
     }
 
     /**
      * add the item at the front of the array.
      */
     public void addFirst(T item) {
-        arrayCheckModify();
-        for (int i = this.size - 1; i >= 0; i--) {
-            items[i + 1] = items[i];
+        if (size == items.length) {
+            resize(size * 2);
         }
-        items[0] = item;
+        T[] a = (T[]) new Object[items.length];
+        a[0] = item;
+        System.arraycopy(items, 0, a, 1, size);
+        items = a;
         size++;
     }
+    /**
+     public static void main(String[] args) {
+     ArrayDeque a = new ArrayDeque();
+     a.addFirst(1);
+     a.addFirst(2);
+     a.addFirst(3);
+     a.addFirst(4);
+     a.addFirst(5);
+     a.addFirst(6);
+     a.addLast(1);
+     a.addLast(2);
+     a.addLast(3);
+     a.addLast(4);
+     a.addLast(5);
+     a.removeFirst();
+     a.removeFirst();
+     a.removeLast();
+     a.removeLast();
+
+     }
+     */
 
     /**
      * add the item at the end of the array.
      */
     public void addLast(T item) {
-        arrayCheckModify();
+        if (size == items.length) {
+            resize(size * 2);
+        }
         items[size] = item;
         size++;
     }
@@ -66,24 +79,34 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
-        T res = items[0];
-        for (int i = 0; i < this.size; i++) {
-            items[i] = items[i + 1];
+        if (size == 0) {
+            return null;
+        } else {
+            T res = items[0];
+            T[] a = (T[]) new Object[items.length];
+            System.arraycopy(items, 1, a, 0, size - 1);
+            items = a;
+            size--;
+            return res;
         }
-        size--;
-        arrayCheckModify();
-        return res;
     }
 
     public T removeLast() {
-        T res = items[size - 1];
-        size--;
-        arrayCheckModify();
-        return res;
+        if (size == 0) {
+            return null;
+        } else {
+            T res = items[size - 1];
+            T[] a = (T[]) new Object[items.length];
+            System.arraycopy(items, 0, a, 0, size - 1);
+            items = a;
+            size--;
+            return res;
+
+        }
     }
 
     public T get(int index) {
-        if (index > 0 && index < this.size) {
+        if (index >= 0 && index < this.size) {
             return items[index];
         } else {
             return null;
