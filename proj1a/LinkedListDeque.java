@@ -29,22 +29,19 @@ public class LinkedListDeque<T> {
      * Adds an item of type T to the front of the deque.
      */
     public void addFirst(T item) {
-        if (size == 0) {
-            sentinel.item = item;
-            size++;
-        } else {
-            sentinel = new Node(sentinel.prev, item, sentinel);
-            sentinel.next.next.prev = sentinel.next;
-            size++;
-        }
+        Node newNode = new Node(sentinel, item, sentinel.next);
+        sentinel.next = newNode;
+        newNode.next.prev = newNode;
+        size++;
     }
 
     /**
      * Adds an item of type T to the back of the deque.
      */
     public void addLast(T item) {
-        sentinel.prev = new Node(sentinel.prev, item, sentinel);
-        sentinel.prev.prev.next = sentinel.prev;
+        Node newNode = new Node(sentinel.prev, item, sentinel);
+        sentinel.prev = newNode;
+        newNode.next.prev = newNode;
         size++;
     }
 
@@ -80,10 +77,9 @@ public class LinkedListDeque<T> {
         if (sentinel.next == sentinel) {
             return null;
         }
-        Node temp = sentinel;
-        sentinel = sentinel.next;
-        sentinel.next = temp.next.next;
-        sentinel.prev = temp.prev;
+        Node temp = sentinel.next;
+        sentinel.prev.next = sentinel.next;
+        sentinel.next.prev = sentinel.prev;
         size--;
         return temp.item;
     }

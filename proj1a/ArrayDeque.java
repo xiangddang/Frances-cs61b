@@ -7,6 +7,26 @@ public class ArrayDeque<T> {
         this.size = 0;
     }
 
+    public static void main(String[] args) {
+        ArrayDeque a = new ArrayDeque();
+        a.addFirst(1);
+        a.addFirst(2);
+        a.addFirst(3);
+        a.addFirst(4);
+        a.addFirst(5);
+        a.addFirst(6);
+        a.addLast(1);
+        a.addLast(2);
+        a.addLast(3);
+        a.addLast(4);
+        a.addLast(5);
+        a.removeFirst();
+        a.removeFirst();
+        a.removeLast();
+        a.removeLast();
+
+    }
+
     /**
      * if the usage of the array is over 50%, double the size of the array
      * if the usage of the array is less than 50%, shrink the length in half;
@@ -31,27 +51,6 @@ public class ArrayDeque<T> {
         items = a;
         size++;
     }
-    /**
-     public static void main(String[] args) {
-     ArrayDeque a = new ArrayDeque();
-     a.addFirst(1);
-     a.addFirst(2);
-     a.addFirst(3);
-     a.addFirst(4);
-     a.addFirst(5);
-     a.addFirst(6);
-     a.addLast(1);
-     a.addLast(2);
-     a.addLast(3);
-     a.addLast(4);
-     a.addLast(5);
-     a.removeFirst();
-     a.removeFirst();
-     a.removeLast();
-     a.removeLast();
-
-     }
-     */
 
     /**
      * add the item at the end of the array.
@@ -95,10 +94,8 @@ public class ArrayDeque<T> {
         if (size == 0) {
             return null;
         } else {
-            T res = items[size - 1];
-            T[] a = (T[]) new Object[items.length];
-            System.arraycopy(items, 0, a, 0, size - 1);
-            items = a;
+            T res = (T) new Object[size - 1];
+            items[size - 1] = null;
             size--;
             return res;
 
