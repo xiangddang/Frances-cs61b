@@ -1,6 +1,6 @@
 public class LinkedListDeque<T> {
 
-    private Node sentinel;
+    private final Node sentinel;
     private int size;
 
     public LinkedListDeque() {
@@ -10,21 +10,21 @@ public class LinkedListDeque<T> {
         size = 0;
     }
     /**
-    public static void main(String[] args) {
-        LinkedListDeque L = new LinkedListDeque();
-        L.addFirst(0);
-        L.addFirst(1);
-        L.addFirst(2);
-        L.addFirst(3);
-        L.addFirst(4);
-        L.addFirst(5);
-        L.addFirst(6);
-        L.addFirst(7);
-        System.out.println(L.removeFirst());
-        System.out.println(L.removeLast());
-        System.out.println(L.removeLast());
-    }
-    */
+     public static void main(String[] args) {
+     LinkedListDeque L = new LinkedListDeque();
+     L.addFirst(0);
+     L.addFirst(1);
+     L.addFirst(2);
+     L.addFirst(3);
+     L.addFirst(4);
+     L.addFirst(5);
+     L.addFirst(6);
+     L.addFirst(7);
+     System.out.println(L.removeFirst());
+     System.out.println(L.removeLast());
+     System.out.println(L.removeLast());
+     }
+     */
     /**
      * Adds an item of type T to the front of the deque.
      */
@@ -130,7 +130,7 @@ public class LinkedListDeque<T> {
 
     private class Node {
         private Node prev;
-        private T item;
+        private final T item;
         private Node next;
 
         public Node(Node prev, T item, Node next) {
