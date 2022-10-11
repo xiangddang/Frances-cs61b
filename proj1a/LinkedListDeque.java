@@ -41,7 +41,7 @@ public class LinkedListDeque<T> {
     public void addLast(T item) {
         Node newNode = new Node(sentinel.prev, item, sentinel);
         sentinel.prev = newNode;
-        newNode.next.prev = newNode;
+        newNode.prev.next = newNode;
         size++;
     }
 
@@ -65,7 +65,7 @@ public class LinkedListDeque<T> {
     public void printDeque() {
         Node pos = sentinel.next;
         for (int i = 0; i < size - 1; i++) {
-            System.out.print(pos.item + "");
+            System.out.print(pos.item + " ");
             pos = pos.next;
         }
     }
@@ -129,8 +129,8 @@ public class LinkedListDeque<T> {
     }
 
     private class Node {
-        private Node prev;
         private final T item;
+        private Node prev;
         private Node next;
 
         public Node(Node prev, T item, Node next) {
