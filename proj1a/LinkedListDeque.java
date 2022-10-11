@@ -9,7 +9,7 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
         size = 0;
     }
-
+    /**
     public static void main(String[] args) {
         LinkedListDeque L = new LinkedListDeque();
         L.addFirst(0);
@@ -24,7 +24,7 @@ public class LinkedListDeque<T> {
         System.out.println(L.removeLast());
         System.out.println(L.removeLast());
     }
-
+    */
     /**
      * Adds an item of type T to the front of the deque.
      */
@@ -103,7 +103,7 @@ public class LinkedListDeque<T> {
      * If no such item exists, returns null
      */
     public T get(int index) {
-        Node pos = sentinel;
+        Node pos = sentinel.next;
         if (index >= size) {
             return null;
         }
