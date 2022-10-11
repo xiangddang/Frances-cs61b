@@ -6,6 +6,7 @@ public class ArrayDeque<T> {
         items = (T[]) new Object[8];
         this.size = 0;
     }
+
     /**
      * if the usage of the array is over 50%, double the size of the array
      * if the usage of the array is less than 50%, shrink the length in half;
